@@ -3,18 +3,21 @@ import NewTicketForm from './NewTicketForm';
 import TicketList from './TicketList';
 import EditTicketForm from './EditTicketForm';
 import TicketDetail from './TicketDetail';
+// new import!
+import db from './../firebase.js'; //  import the db variable from firbase.js into TicketControl:
+import { collection, addDoc } from "firebase/firestore"; // New code in "Adding Tickets to Firestore"
 
 function TicketControl() {
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     formVisibleOnPage: false,
-  //     mainTicketList: [],
-  //     selectedTicket: null,
-  //     editing: false
-  //   };
-  // }
+/*  constructor(props) {
+    super(props);
+    this.state = {
+      formVisibleOnPage: false,
+      mainTicketList: [],
+      selectedTicket: null,
+      editing: false
+    };
+  }  */
 
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);
   const [mainTicketList, setMainTicketList] = useState([]);
