@@ -57,13 +57,10 @@ function TicketControl() {
     setEditing(false);
     setSelectedTicket(null);
   }
-
-  const handleAddingNewTicketToList = (newTicket) => {
-    // new code!
-    const newMainTicketList = mainTicketList.concat(newTicket);
-    // new code!
-    setMainTicketList(newMainTicketList);
-    setFormVisibleOnPage(false)
+/* New Code lesson 12: adding tickets to firestore */
+  const handleAddingNewTicketToList = async (newTicketData) => {
+    await addDoc(collection(db, "tickets"), newTicketData);
+    setFormVisibleOnPage(false);
   }
 
   const handleChangingSelectedTicket = (id) => {
