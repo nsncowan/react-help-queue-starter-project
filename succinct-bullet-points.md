@@ -16,10 +16,10 @@
 - React Router is an external library that simplifies routing in React applications.
 - Install React Router using the command: `npm install react-router-dom@6`.
 - React Router provides several components: `<BrowserRouter>`, `<Routes>`, `<Route>`, and `<Link>`.
-- `<BrowserRouter>` is added to the root component (`<App>`) to enable routing functionality.
-- `<Routes>` component is used to define multiple routes.
-- `<Route>` component specifies the component to render and the corresponding path for routing.
-- `<Link>` component is used to create links to client-side routes.
+  - `<BrowserRouter>` is added to the root component (`<App>`) to enable routing functionality.
+  - `<Routes>` component is used to define multiple routes.
+  - `<Route>` component specifies the component to render and the corresponding path for routing.
+  - `<Link>` component is used to create links to client-side routes.
 - Create a `SignIn` component with placeholder text for the sign-in page.
 - Update the `App` component to include the router and define routes.
 - Wrap the content in the `App` component with `<Router>`.

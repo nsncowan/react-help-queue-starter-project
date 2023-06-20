@@ -4,7 +4,7 @@ import TicketList from './TicketList';
 import EditTicketForm from './EditTicketForm';
 import TicketDetail from './TicketDetail';
 // new import!
-import db from './../firebase.js'; //  import the db variable from firbase.js into TicketControl:
+import { db } from './../firebase.js'; //  import the db variable from firbase.js into TicketControl:
 import { collection, addDoc, doc, updateDoc, onSnapshot, deleteDoc } from "firebase/firestore";
 function TicketControl() {
 
