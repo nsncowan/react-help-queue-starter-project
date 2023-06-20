@@ -58,10 +58,8 @@ function TicketControl() {
     }
   }
 
-  const handleDeletingTicket = (id) => {
-    const newMainTicketList = mainTicketList.filter(ticket => ticket.id !== id);
-    setMainTicketList(newMainTicketList);
-    // new code!
+  const handleDeletingTicket = async (id) => {
+    await deleteDoc(doc(db, "tickets", id));
     setSelectedTicket(null);
   }
 
@@ -70,16 +68,13 @@ function TicketControl() {
     setEditing(true);
   }
 
-  const handleEditingTicketInList = (ticketToEdit) => {
-    const editedMainTicketList = mainTicketList
-    // new code: selectedTicket.id
-    .filter(ticket => ticket.id !== selectedTicket.id)
-    .concat(ticketToEdit);
-    setMainTicketList(editedMainTicketList);
-    // new code!
+  const handleEditingTicketInList = async (ticketToEdit) => {
+    const ticketRef = doc(db, "tickets", ticketToEdit.id);
+    await updateDoc(ticketRef, ticketToEdit);
     setEditing(false);
     setSelectedTicket(null);
   }
+
 /* New Code lesson 12: adding tickets to firestore */
   const handleAddingNewTicketToList = async (newTicketData) => {
     await addDoc(collection(db, "tickets"), newTicketData);
