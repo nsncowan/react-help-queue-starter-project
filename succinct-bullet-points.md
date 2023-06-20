@@ -46,3 +46,17 @@
 - A sign-out button is added, and the `doSignOut()` function handles the sign-out process using `signOut()`.
 - Success or error messages are displayed for the sign-out process using the `useState` hook.
 - The lesson emphasizes using simple Firebase authentication implementation without additional libraries.
+
+## 7 . 22 : Firebase Authorization
+- In the previous lesson, Firebase authentication was added to the SignIn component, but it didn't affect the application's functionality.
+- In this lesson, basic authorization is added to lock down the queue if a user is not signed in.
+- The Auth instance from firebase.js is imported to access user data, such as the currently signed-in user.
+- The TicketControl component is modified to include an if-else statement for authorization.
+- If auth.currentUser is null, a message is displayed stating that the user must be signed in to access the queue.
+- If auth.currentUser is not null, the ticket UI logic is executed.
+- The new code for authorization is integrated into the existing ticket UI logic.
+- The auth.currentUser property represents the currently signed-in user, and if it is null, there is no user signed in.
+- The error variable holds any errors generated during the database query.
+- The User object represents a signed-in user and extends functionality from the UserInfo class, which stores user information.
+- More robust authentication and authorization may be required for larger applications.
+- Further information on authentication methods can be found in the Firebase documentation.
