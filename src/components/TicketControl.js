@@ -5,7 +5,8 @@ import EditTicketForm from './EditTicketForm';
 import TicketDetail from './TicketDetail';
 // new import!
 import { db, auth } from './../firebase.js'; //  import the db variable from firbase.js into TicketControl:
-import { collection, addDoc, doc, updateDoc, onSnapshot, deleteDoc } from "firebase/firestore";
+import { collection, addDoc, doc, updateDoc, onSnapshot, deleteDoc, query, orderBy } from "firebase/firestore";
+import { formatDistanceToNow } from 'date-fns';
 
 function TicketControl() {
 
@@ -25,16 +26,49 @@ function TicketControl() {
   const [editing, setEditing] = useState(false);
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    function updateTicketElapsedWaitTime() {
+      const newMainTicketList = mainticketList.map(ticket => {
+        const newFormattedWaitTime = formatDistanceToNow(ticket.timeOpen);
+        return {...ticket, formattedWaitTime: newFormattedWaitTime};
+      });
+      setMainTicketList(newMainTicketList);
+    }
+    
+    const waitTimeUpdateTimer = setInterval(() => 
+    updateTicketElapsedWaitTime(),
+    60000
+    );
+    
+    return function cleanup() {
+      clearInterval(waitTimeUpdateTimer);
+    }
+
+  }, [mainTicketList])
+  
+  
+  
+  
+  
   useEffect(() => { 
-    const unSubscribe = onSnapshot(
+    // new code below!
+    const queryByTimestamp = query(
       collection(db, "tickets"), 
-      (collectionSnapshot) => {
+      orderBy('timeOpen')
+    );
+    const unSubscribe = onSnapshot(
+      queryByTimestamp, 
+      (querySnapshot) => {
         const tickets = [];
-        collectionSnapshot.forEach((doc) => {
+        querySnapshot.forEach((doc) => {
+          const timeOpen = doc.get('timeOpen', {serverTimestamps: "estimate"}).toDate(); // NEW CODE "ADDING WAIT TIME TO QUEUE"
+          const jsDate = new Date(timeOpen); // NEW CODE "ADDING WAIT TIME TO QUEUE"
           tickets.push({
             names: doc.data().names, 
             location: doc.data().location, 
             issue: doc.data().issue, 
+            timeOpen: jsDate, // NEW CODE "ADDING WAIT TIME TO QUEUE"
+            formattedWaitTime: formatDistanceToNow(jsDate), // NEW CODE "ADDING WAIT TIME TO QUEUE"
             id: doc.id
           });
         })

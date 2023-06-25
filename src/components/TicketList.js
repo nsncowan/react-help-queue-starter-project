@@ -12,6 +12,7 @@ function TicketList(props){
           whenTicketClicked={props.onTicketSelection}
           names={ticket.names}
           location={ticket.location}
+          formattedWaitTime={ticket.formattedWaitTime} // new prop!
           issue={ticket.issue}
           id={ticket.id}
           key={ticket.id}/>
