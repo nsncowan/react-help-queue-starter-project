@@ -28,7 +28,7 @@ function TicketControl() {
 
   useEffect(() => {
     function updateTicketElapsedWaitTime() {
-      const newMainTicketList = mainticketList.map(ticket => {
+      const newMainTicketList = mainTicketList.map(ticket => {
         const newFormattedWaitTime = formatDistanceToNow(ticket.timeOpen);
         return {...ticket, formattedWaitTime: newFormattedWaitTime};
       });
@@ -137,25 +137,29 @@ function TicketControl() {
     
     if (error) {
       currentlyVisibleState = <p>There was an error: {error}</p>
-    } else if (editing) {      
+    } 
+    else if (editing) {      
       currentlyVisibleState = 
       <EditTicketForm 
       ticket = {selectedTicket} 
       onEditTicket = {handleEditingTicketInList} />;
       buttonText = "Return to Ticket List";
-    } else if (selectedTicket != null) {
+    } 
+    else if (selectedTicket != null) {
       currentlyVisibleState = 
       <TicketDetail 
       ticket={selectedTicket} 
       onClickingDelete={handleDeletingTicket}
       onClickingEdit = {handleEditClick} />;
       buttonText = "Return to Ticket List";
-    } else if (formVisibleOnPage) {
+    } 
+    else if (formVisibleOnPage) {
       currentlyVisibleState = 
       <NewTicketForm 
       onNewTicketCreation={handleAddingNewTicketToList}/>;
       buttonText = "Return to Ticket List"; 
-    } else {
+    } 
+    else {
       currentlyVisibleState = 
       <TicketList 
       onTicketSelection={handleChangingSelectedTicket} 
