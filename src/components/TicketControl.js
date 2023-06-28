@@ -39,16 +39,10 @@ function TicketControl() {
     updateTicketElapsedWaitTime(),
     60000
     );
-    
     return function cleanup() {
       clearInterval(waitTimeUpdateTimer);
     }
-
   }, [mainTicketList])
-  
-  
-  
-  
   
   useEffect(() => { 
     // new code below!
@@ -78,7 +72,6 @@ function TicketControl() {
         setError(error.message);
       }
     );
-
     return () => unSubscribe();
   }, []);
 
@@ -149,7 +142,7 @@ function TicketControl() {
       currentlyVisibleState = 
       <TicketDetail 
       ticket={selectedTicket} 
-      onClickingDelete={handleDeletingTicket}
+      onClickingDelete = {handleDeletingTicket}
       onClickingEdit = {handleEditClick} />;
       buttonText = "Return to Ticket List";
     } 
