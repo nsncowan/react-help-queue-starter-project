@@ -3,6 +3,8 @@ import NewTicketForm from './NewTicketForm';
 import TicketList from './TicketList';
 import EditTicketForm from './EditTicketForm';
 import TicketDetail from './TicketDetail';
+// We import ThemeContext to create a new consumer.
+import { ThemeContext } from "../context/theme-context";
 
 class TicketControl extends React.Component {
 
@@ -65,6 +67,14 @@ class TicketControl extends React.Component {
   }
 
   render(){
+    // We access the context value.
+    let theme = this.context;
+    // We create our button styles.
+    const buttonStyles = { 
+      backgroundColor: theme.buttonBackground, 
+      color: theme.textColor, 
+    }
+
     let currentlyVisibleState = null;
     let buttonText = null; 
     if (this.state.editing ) {      
@@ -86,12 +96,16 @@ class TicketControl extends React.Component {
     return (
       <React.Fragment>
         {currentlyVisibleState}
-        <button onClick={this.handleClick}>{buttonText}</button> 
+        {/* We've added a new style attribute to the button below. */}
+        <button style={buttonStyles} onClick={this.handleClick}>{buttonText}</button> 
       </React.Fragment>
     );
   }
 
 }
+
+// We've created a contextType property and set it to ThemeContext.
+TicketControl.contextType = ThemeContext;
 
 export default TicketControl;
 
